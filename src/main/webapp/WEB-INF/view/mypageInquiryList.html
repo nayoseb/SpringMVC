@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>내 문의 목록</title>
+</head>
+<body>
+<h1>내 문의 목록</h1>
+
+<!-- 카테고리 선택 폼 -->
+<form th:action="@{/cs/inquiries}" method="get">
+    <select name="category">
+        <option value="">모든 카테고리</option>
+        <option value="불만 접수">불만 접수</option>
+        <option value="제안">제안</option>
+        <option value="환불/교환">환불/교환</option>
+        <option value="칭찬해요">칭찬해요</option>
+        <option value="기타 문의">기타 문의</option>
+    </select>
+    <button type="submit">검색</button>
+</form>
+
+<!-- 문의 목록 -->
+<div th:each="inquiry : ${inquiries}">
+    <div>
+        <h2 th:text="${inquiry.title}">제목</h2>
+        <p><strong>카테고리:</strong> <span th:text="${inquiry.category}"></span></p>
+        <p><strong>작성일:</strong> <span th:text="${inquiry.creationDate}"></span></p>
+        <p><strong>답변 상태:</strong> <span th:text="${inquiry.isAnswered ? '답변 완료' : '미답변'}"></span></p>
+        <a th:href="@{/cs/inquiry/{id}(id=${inquiry.id})}">상세 보기</a>
+    </div>
+</div>
+
+<p><a th:href="@{/cs/inquiries/new}">문의하기</a></p>
+
+<p><a th:href="@{/}">홈으로 가기</a></p>
+
+
+</body>
+</html>

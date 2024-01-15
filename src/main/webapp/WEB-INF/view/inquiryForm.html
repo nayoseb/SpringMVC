@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>문의사항 등록</title>
+</head>
+<body>
+<form th:action="@{/cs/inquiries/post}" th:object="${inquiryRegisterDto}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" th:field="*{title}" required minlength="2" maxlength="200" />
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    </div>
+    <div>
+        <label for="category">카테고리</label>
+        <select id="category" th:field="*{category}" required>
+            <option value="">카테고리 선택</option>
+            <option value="불만 접수">불만 접수</option>
+            <option value="제안">제안</option>
+            <option value="환불/교환">환불/교환</option>
+            <option value="칭찬해요">칭찬해요</option>
+            <option value="기타 문의">기타 문의</option>
+        </select>
+    </div>
+    <div>
+        <label for="content">내용</label>
+        <textarea id="content" th:field="*{content}" required maxlength="40000"></textarea>
+        <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+    </div>
+    <div>
+        <label for="imageFiles">이미지 파일</label>
+        <input type="file" id="imageFiles" name="imageFiles" multiple />
+    </div>
+    <div>
+        <button type="submit">확인</button>
+        <a href="/cs/inquiries">취소</a>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+</head>
+<body>
+<h1>NHN Mart 고객센터입니다. 환영합니다!</h1>
+<div th:if="${username}">
+  <p>안녕하세요, <span th:text="${username}"></span>님!</p>
+  <p><a th:href="@{/cs/logout}">로그아웃</a></p>
+
+  <!-- 문의하기 페이지 링크 -->
+  <p><a th:href="@{/cs/inquiries/new}">문의하기</a></p>
+
+  <!-- 내 문의 목록 페이지 링크 -->
+  <p><a th:href="@{/cs/inquiries}">내 문의 목록</a></p>
+
+  <!-- 관리자: 답변되지 않은 문의 목록 페이지 링크 (관리자인 경우에만 표시) -->
+  <div th:if="${isAdmin}">
+    <p><a th:href="@{/cs/admin/unanswered-inquiries}">답변되지 않은 문의 목록</a></p>
+  </div>
+
+  <div th:if="${username == 'admin'}">
+    <p><a th:href="@{/cs/admin/unanswered-inquiries}">답변되지 않은 문의 목록</a></p>
+  </div>
+
+</div>
+<div th:unless="${username}">
+  <p><a th:href="@{/cs/login}">로그인</a></p>
+</div>
+</body>
+</html>

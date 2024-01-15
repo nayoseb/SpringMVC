@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>문의 상세 정보</title>
+</head>
+<body>
+<h1 th:text="${inquiry.title}">문의 제목</h1>
+<p><strong>카테고리:</strong> <span th:text="${inquiry.category}"></span></p>
+<p><strong>작성일:</strong> <span th:text="${inquiry.creationDate}"></span></p>
+<p><strong>내용:</strong> <span th:text="${inquiry.content}"></span></p>
+<div th:if="${inquiry.attachments}">
+    <h3>첨부파일</h3>
+    <ul>
+        <li th:each="file : ${inquiry.attachments}">
+            <img th:src="@{${file}}" />
+        </li>
+    </ul>
+</div>
+<!-- 답변 정보 표시 (답변이 있을 경우) -->
+<div th:if="${inquiry.answer}">
+    <h3>답변</h3>
+    <p><strong>답변 내용:</strong> <span th:text="${inquiry.answer.content}"></span></p>
+    <p><strong>답변 일시:</strong> <span th:text="${inquiry.answer.responseDate}"></span></p>
+    <p><strong>CS 담당자:</strong> <span th:text="${inquiry.answer.csRepresentativeId}"></span></p>
+</div>
+
+<div th:if="${inquiry.answer == null}">
+    <h3>답변 상태</h3>
+    <p>답변이 아직 등록되지 않았습니다.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>답변 작성</title>
+</head>
+<body>
+<h1>답변 작성</h1>
+
+<!-- 질문 상세 정보 -->
+<div>
+    <h2>질문 상세</h2>
+    <p><strong>제목:</strong> <span th:text="${inquiry.title}"></span></p>
+    <p><strong>카테고리:</strong> <span th:text="${inquiry.category}"></span></p>
+    <p><strong>내용:</strong> <span th:text="${inquiry.content}"></span></p>
+</div>
+
+<!-- 답변 작성 폼 -->
+<form th:action="@{/cs/admin/answers}" th:object="${answerRegisterDto}" method="post">
+    <input type="hidden" th:field="*{inquiryId}" />
+
+    <div>
+        <label for="comment">답변 내용:</label>
+        <textarea id="comment" th:field="*{comment}" rows="5" cols="50" required minlength="1" maxlength="40000"></textarea>
+        <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">답변 내용 오류</div>
+    </div>
+
+    <div>
+        <button type="submit">답변하기</button>
+        <a href="/cs/admin/unanswered-inquiries">취소</a>
+    </div>
+</form>
+</body>
+</html>
